@@ -100,9 +100,6 @@ module.exports = function(grunt) {
     'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
-
   grunt.registerTask('upload-prod', [
     'shell:prodServer'
   ]);
