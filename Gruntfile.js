@@ -11,7 +11,7 @@ module.exports = function(grunt) {
           'public/client/**/*.js',
           // 'public/lib/**/*.js',
         ],
-        dest: 'public/build.js',
+        dest: 'public/dist/build.js',
       }
     },
 
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
     uglify: {
       my_target: {
         files: {
-          'public/dist/buildMin.js': ['public/build.js']
+          'public/dist/build.min.js': ['public/dist/build.js']
         }
       }
     },
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
     cssmin: {
       target: {
         files: {
-          'public/dist/styleMin.css': ['public/style.css']
+          'public/style.min.css': ['public/style.css']
         }
       }
     },
@@ -117,12 +117,6 @@ module.exports = function(grunt) {
     'cssmin'
   ]);
 
-  // grunt.registerTask('start', [
-  //   //watch source code for changes in order to rerun any grunt tasks as appropriate
-  //   'watch',
-  //   'nodemon',
-  // ]);
-
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
       // add your production server task here
@@ -140,7 +134,6 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('deploy', function(n) {
-    console.log(n);
     grunt.task.run([ 'preDeploy']);
     if (grunt.option('prod')) {
       grunt.task.run([ 'server-prod' ]);
