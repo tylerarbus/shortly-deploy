@@ -15,14 +15,6 @@ usersSchema.methods.comparePassword = function(attemptedPassword, callback) {
   });
 };
 
-// usersSchema.methods.hashPassword = function() {
-//   var cipher = Promise.promisify(bcrypt.hash);
-//   return cipher(this.get('password'), null, null).bind(this)
-//     .then(function(hash) {
-//       this.set('password', hash);
-//   });  
-// };
-
 usersSchema.pre('save', function(next) {
   var cipher = Promise.promisify(bcrypt.hash);
   cipher(this.password, null, null).bind(this)
