@@ -1,4 +1,5 @@
 var db = require('../config');
+var crypto = require('crypto');
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
 var mongoose = require('mongoose');
@@ -10,7 +11,14 @@ var urlsSchema = mongoose.Schema({
   title: String,
   visits: Number,
   timestamp: {type: Date, default: Date.now},
-})
+});
+
+urlsSchema.pre('save', function(next) {
+  var shasum = crypto.createHash('sha1');
+  shasum.update(this.url);
+  this.code = shasum.digest('hex').slice(0, 5);
+  next();
+});
 
 var Link = mongoose.model('Link', urlsSchema)
 
